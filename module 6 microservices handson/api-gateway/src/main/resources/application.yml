@@ -1,0 +1,26 @@
+server:
+  port: 8080 # Default port for API Gateway
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Enable discovery service integration
+          lower-case-service-id: true # Use lower case service IDs for routing
+      routes:
+        - id: account-service-route
+          uri: lb://account-service # Load balance to account-service registered in Eureka
+          predicates:
+            - Path=/accounts/** # Route requests starting with /accounts to account-service
+        - id: loan-service-route
+          uri: lb://loan-service # Load balance to loan-service registered in Eureka
+          predicates:
+            - Path=/loans/** # Route requests starting with /loans to loan-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka # URL of the Eureka Server

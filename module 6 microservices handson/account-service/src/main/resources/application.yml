@@ -1,0 +1,11 @@
+server:
+  port: 8081 # Port for the Account Service
+
+spring:
+  application:
+    name: account-service # Name of the service to register with Eureka
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka # URL of the Eureka Server
